@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\SpeakerFactory;
 
 /**
  * The Speaker Model.
@@ -15,6 +16,16 @@ class Speaker extends Model {
 
     public function presentations(){
         return $this->belongsToMany('App\Models\Presentation', 'pres_speakers');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function factory()
+    {
+        return SpeakerFactory::new();
     }
     
      public static function boot()

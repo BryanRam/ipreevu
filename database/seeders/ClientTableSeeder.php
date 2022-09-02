@@ -2,15 +2,22 @@
 
 # database/seeds/QuoteTableSeeder.php
 
-use App\Models\Client;  
+namespace Database\Seeders;
+ 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Models\Client;  
 class ClientTableSeeder extends Seeder  
 {
+    protected $model = Client::class;
+    
     public function run()
     {
-        
-        Client::factory(App\Models\Client::class, 50)->create(); 
+        Client::factory()
+        ->count(50)
+        ->create();
        
     }
 }

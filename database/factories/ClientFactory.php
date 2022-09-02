@@ -1,5 +1,10 @@
 <?php
 
+namespace Database\Factories;
+ 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,16 +16,21 @@
 |
 */
 
-$factory->define(App\Models\Client::class, function ($faker) {
-    return [
-        'contact_name' => $faker->name,
-        'email' => $faker->email,
-        'password' => $faker->password,
-        'organisation' => $faker->company,
-        'address1' => $faker->address,
-        'address2' => $faker->secondaryAddress,
-        'city' => $faker->city,
-        'country' => $faker->country,
-        
-    ];
-});
+class ClientFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'contact_name' => fake()->name(),
+            'email' => fake()->unique()->email(),
+            'password' => fake()->password(),
+            'organisation' => fake()->company(),
+            'address1' => fake()->address(),
+            'address2' => fake()->secondaryAddress(),
+            'city' => fake()->city(),
+            'country' => fake()->country(),
+            
+        ];
+    }
+}
+

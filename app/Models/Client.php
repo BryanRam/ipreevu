@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 //use Tymon\JWTAuth\Contracts\JWTSubject as JWTSubject;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Database\Factories\ClientFactory;
 
 /**
  * Client Model.
@@ -46,6 +47,16 @@ class Client extends Model implements Authenticatable {
     {
         return $this->hasMany('App\Models\Conference');
     }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function factory()
+    {
+        return ClientFactory::new();
+    }
     
     /**
      * Get the identifier that will be stored in the subject claim of the JWT
@@ -64,4 +75,5 @@ class Client extends Model implements Authenticatable {
 //     public function getJWTCustomClaims(){
 //         return [];
 //     }
-// }
+
+ }

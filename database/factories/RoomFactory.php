@@ -1,5 +1,8 @@
 <?php
-
+namespace Database\Factories;
+ 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,10 +14,14 @@
 |
 */
 
-$factory->define(App\Models\Room::class, function ($faker) {
-    return [
-        'name' => $faker->city,
-        'conference_id' => $faker->numberBetween($min=1, $max=20),
-        
-    ];
-});
+class RoomFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'name' => fake()->city,
+            'conference_id' => fake()->numberBetween($min=1, $max=20),
+            
+        ];
+    }
+}

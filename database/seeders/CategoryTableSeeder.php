@@ -1,15 +1,19 @@
 <?php
 
 # database/seeds/QuoteTableSeeder.php
+namespace Database\Seeders;
 
 use App\Models\Category;  
 use Illuminate\Database\Seeder;
 
 class CategoryTableSeeder extends Seeder  
 {
+    protected $model = Category::class;
+
     public function run()
     {
-        Category::factory(App\Models\Category::class, 50)->create(); 
-	
+        Category::factory()
+        ->count(50)
+        ->create();
     }
 }

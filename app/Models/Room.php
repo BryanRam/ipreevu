@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\RoomFactory;
 
 /**
  * The Room model.
@@ -19,6 +20,16 @@ class Room extends Model {
     
     public function presentations(){
         return $this->hasMany('App\Models\Presentation');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function factory()
+    {
+        return RoomFactory::new();
     }
     
     

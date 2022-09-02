@@ -1,4 +1,8 @@
 <?php
+namespace Database\Factories;
+ 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,11 +14,15 @@
 | database. Just tell the factory how a default model should look.
 |
 */
+class CategoryFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'name' => fake()->name(),
+            'keywords' => fake()->sentence($nbWords = 8),
+            'parent_id' => fake()->numberBetween($min=1, $max=20),
+        ];
+    }
 
-$factory->define(App\Models\Category::class, function ($faker) {
-    return [
-        'name' => $faker->name,
-        'keywords' => $faker->sentence($nbWords = 8),
-        'parent_id' => $faker->numberBetween($min=1, $max=20),
-    ];
-});
+}

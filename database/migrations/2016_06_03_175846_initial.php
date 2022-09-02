@@ -70,14 +70,15 @@ class Initial extends Migration
         });
         
         // Categories
-        /*
+        ///*
         Schema::create('categories', function(Blueprint $table){
            $table->increments('category_id');
            $table->string('name', 100);
            $table->text('keywords');
            $table->integer('parent_id')->nullable();
            $table->timestamps();
-        });*/
+        });
+        //*/
         
         // Rooms
         Schema::create('rooms', function(Blueprint $table){

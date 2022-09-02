@@ -1,5 +1,10 @@
 <?php
 
+namespace Database\Factories;
+ 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -10,18 +15,21 @@
 | database. Just tell the factory how a default model should look.
 |
 */
-
-$factory->define(App\Models\Conference::class, function ($faker) {
-    return [
-        'client_id' => $faker->numberBetween($min=1, $max=20),
-        'name' => $faker->name,
-        'type' => 'public',
-        'description' => $faker->sentence($nbWords=10),
-        'address1' => $faker->address,
-        'address2' => $faker->secondaryAddress,
-        'city' => $faker->city,
-        'country' => $faker->country,
-        'start_time' => $faker->time,
-        'end_time' => $faker->time,
-    ];
-});
+class ConferenceFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'client_id' => fake()->numberBetween($min=1, $max=20),
+            'name' => fake()->name,
+            'type' => 'public',
+            'description' => fake()->sentence($nbWords=10),
+            'address1' => fake()->address(),
+            'address2' => fake()->secondaryAddress(),
+            'city' => fake()->city(),
+            'country' => fake()->country(),
+            'start_time' => fake()->dateTime(),
+            'end_time' => fake()->dateTime(),
+        ];
+    }
+}

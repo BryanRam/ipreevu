@@ -5,6 +5,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\ConferenceFactory;
 
 /**
  * Conference Model.
@@ -73,6 +74,16 @@ class Conference extends Model{
      */
     public function attendees(){
         return $this->belongsToMany('App\Models\Attendee', 'conference_attendees');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function factory()
+    {
+        return ConferenceFactory::new();
     }
     
     /**

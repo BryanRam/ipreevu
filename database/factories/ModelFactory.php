@@ -1,5 +1,10 @@
 <?php
 
+namespace Database\Factories;
+ 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -10,10 +15,14 @@
 | database. Just tell the factory how a default model should look.
 |
 */
-
-$factory->define(App\User::class, function ($faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-    ];
-});
+class ModelFactory extends Factory
+{
+    public function definition()
+    {
+    
+        return [
+            'name' => fake()->name(),
+            'email' => fake()->email(),
+        ];
+    }
+}

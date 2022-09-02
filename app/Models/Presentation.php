@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\PresentationFactory;
 
 /**
  * Presentation model.
@@ -31,6 +32,16 @@ class Presentation extends Model {
     
     public function room(){
         return $this->belongsTo('App\Models\Room');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function factory()
+    {
+        return PresentationFactory::new();
     }
     
     

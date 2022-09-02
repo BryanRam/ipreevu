@@ -1,4 +1,8 @@
 <?php
+namespace Database\Factories;
+ 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,16 +14,19 @@
 | database. Just tell the factory how a default model should look.
 |
 */
-
-$factory->define(App\Models\Presentation::class, function ($faker) {
-    return [
-        'room_id' => $faker->numberBetween($min=1, $max=20),
-        'conference_id' => $faker->numberBetween($min=1, $max=20),
-        'title' => $faker->catchPhrase,
-        'start_time' => $faker->time,
-        'end_time' => $faker->time,
-        'abstract' => $faker->sentence($nbWords=30),
-        'keywords' => $faker->sentence($nbWords=10),
-                
-    ];
-});
+class PresentationFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'room_id' => fake()->numberBetween($min=1, $max=20),
+            'conference_id' => fake()->numberBetween($min=1, $max=20),
+            'title' => fake()->catchPhrase(),
+            'start_time' => fake()->dateTime(),
+            'end_time' => fake()->dateTime(),
+            'abstract' => fake()->sentence($nbWords=30),
+            'keywords' => fake()->sentence($nbWords=10),
+                    
+        ];
+    }
+}

@@ -1,4 +1,8 @@
 <?php
+namespace Database\Factories;
+ 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,14 +14,17 @@
 | database. Just tell the factory how a default model should look.
 |
 */
-
-$factory->define(App\Models\Speaker::class, function ($faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->email,
-        'affiliation' => $faker->password,
-        'bio' => $faker->sentence($nbWords = 30),
-        'telephone' => $faker->phoneNumber,
-        
-    ];
-});
+class SpeakerFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'name' => fake()->name(),
+            'email' => fake()->unique()->email(),
+            'affiliation' => fake()->password(),
+            'bio' => fake()->sentence(20),
+            'telephone' => fake()->phoneNumber(),
+            
+        ];
+    }
+}

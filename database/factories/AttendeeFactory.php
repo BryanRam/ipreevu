@@ -1,5 +1,10 @@
 <?php
 
+namespace Database\Factories;
+ 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -10,12 +15,16 @@
 | database. Just tell the factory how a default model should look.
 |
 */
+class AttendeeFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'name' => fake()->name(),
+            'email' => fake()->unique()->email(),
+            'password' => fake()->password(),
+            
+        ];
+    }
+}
 
-$factory->define(App\Models\Attendee::class, function ($faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->email,
-        'password' => $faker->password,
-        
-    ];
-});

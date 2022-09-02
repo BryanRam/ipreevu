@@ -7,11 +7,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
-use Tymon\JWTAuth\Contracts\JWTSubject as JWTSubject;
+//use Tymon\JWTAuth\Contracts\JWTSubject as JWTSubject;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 //use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Database\Factories\AttendeeFactory;
 
 /**
  * Attendee model.
@@ -20,7 +21,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * 
  * @filesource
  */
-class Attendee extends Model implements CanResetPasswordContract, JWTSubject, Authenticatable{
+class Attendee extends Model implements CanResetPasswordContract, /*JWTSubject,*/ Authenticatable{
     use CanResetPassword, AuthenticatableTrait, Authorizable;
 
     protected $primaryKey = 'attendee_id';
@@ -75,18 +76,18 @@ class Attendee extends Model implements CanResetPasswordContract, JWTSubject, Au
      *
      * @return mixed
      */
-    public function getJWTIdentifier(){
-        return $this->getKey();
-    }
+    // public function getJWTIdentifier(){
+    //     return $this->getKey();
+    // }
 
     /**
      * Return a key value array, containing any custom claims to be added to the JWT
      *
      * @return array
      */
-    public function getJWTCustomClaims(){
-        return [];
-    }
+    // public function getJWTCustomClaims(){
+    //     return [];
+    // }
     
     public function getRememberToken()
     {   
@@ -101,5 +102,15 @@ class Attendee extends Model implements CanResetPasswordContract, JWTSubject, Au
     public function getRememberTokenName()
     {
     return 'remember_token';
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function factory()
+    {
+        return AttendeeFactory::new();
     }
 }
