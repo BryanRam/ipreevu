@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AttendeesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,31 +95,57 @@ Route::post('/speakers/register', 'SpeakersController@create_new');
 /**
  * These routes perform actions related to attendees
  */
+Route::controller(AttendeesController::class)->group(function() {
+    Route::post('/attendees/login', 'login');
+    Route::post('/attendees/logout', 'logout');
 
-Route::post('/attendees/login', 'AttendeesController@login');
-Route::post('/attendees/logout', 'AttendeesController@logout');
+    
 
-Route::post('/auth/refresh-token', ['middleware' => 'jwt.refresh', function() {}]);
+    Route::post('/attendees/register', 'register');
+    Route::post('/attendees/{id}/changepassword', 'change_password');
+    Route::post('/attendees/{email}/forgotpassword', 'forgot_password');
+    //Route::post('/password/email', 'PasswordController@postEmail');
+    //Route::post('/password/reset/{token}', 'PasswordController@postReset');
 
-Route::post('/attendees/register', 'AttendeesController@register');
-Route::post('/attendees/{id}/changepassword', 'AttendeesController@change_password');
-Route::post('/attendees/{email}/forgotpassword', 'AttendeesController@forgot_password');
-Route::post('/password/email', 'PasswordController@postEmail');
-Route::post('/password/reset/{token}', 'PasswordController@postReset');
+    //Route::post('/attendees/{attendeeID}/conferences/{conferenceID}', 'AttendeesController@join_conference');
+    Route::post('/attendees/{attendeeID}/conferences/{conferenceID}', ['middleware' => 'auth:attendee', 'uses' => 'join_conference']);
 
-//Route::post('/attendees/{attendeeID}/conferences/{conferenceID}', 'AttendeesController@join_conference');
-Route::post('/attendees/{attendeeID}/conferences/{conferenceID}', ['middleware' => 'auth:attendee', 'uses' => 'AttendeesController@join_conference']);
-
-Route::get('/attendees', 'AttendeesController@get_all');
-Route::get('/attendees/{id}', 'AttendeesController@get_id');
-//Route::get('/attendees/{id}/conferences', 'AttendeesController@get_conferences');
-Route::get('/attendees/{id}/conferences', ['middleware' => 'auth:attendee', 'uses' => 'AttendeesController@get_conferences']);
+    Route::get('/attendees', 'get_all');
+    Route::get('/attendees/{id}', 'get_id');
+    //Route::get('/attendees/{id}/conferences', 'AttendeesController@get_conferences');
+    Route::get('/attendees/{id}/conferences', ['middleware' => 'auth:attendee', 'uses' => 'get_conferences']);
 
 
-Route::delete('/attendees/{id}', 'AttendeesController@delete_attendee');
+    Route::delete('/attendees/{id}', 'delete_attendee');
 
-//put
-Route::put('/attendees/{id}', 'AttendeesController@edit_attendee');
+    //put
+    Route::put('/attendees/{id}', 'edit_attendee');
+
+});
+// Route::post('/attendees/login', 'AttendeesController@login');
+// Route::post('/attendees/logout', 'AttendeesController@logout');
+
+// Route::post('/auth/refresh-token', ['middleware' => 'jwt.refresh', function() {}]);
+
+// Route::post('/attendees/register', 'AttendeesController@register');
+// Route::post('/attendees/{id}/changepassword', 'AttendeesController@change_password');
+// Route::post('/attendees/{email}/forgotpassword', 'AttendeesController@forgot_password');
+// Route::post('/password/email', 'PasswordController@postEmail');
+// Route::post('/password/reset/{token}', 'PasswordController@postReset');
+
+// //Route::post('/attendees/{attendeeID}/conferences/{conferenceID}', 'AttendeesController@join_conference');
+// Route::post('/attendees/{attendeeID}/conferences/{conferenceID}', ['middleware' => 'auth:attendee', 'uses' => 'AttendeesController@join_conference']);
+
+// Route::get('/attendees', 'AttendeesController@get_all');
+// Route::get('/attendees/{id}', 'AttendeesController@get_id');
+// //Route::get('/attendees/{id}/conferences', 'AttendeesController@get_conferences');
+// Route::get('/attendees/{id}/conferences', ['middleware' => 'auth:attendee', 'uses' => 'AttendeesController@get_conferences']);
+
+
+// Route::delete('/attendees/{id}', 'AttendeesController@delete_attendee');
+
+// //put
+// Route::put('/attendees/{id}', 'AttendeesController@edit_attendee');
 
 
 

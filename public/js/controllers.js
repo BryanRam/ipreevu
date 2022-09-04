@@ -326,13 +326,14 @@ angular.module('starter.controllers', [])
 					alert('Login Successful!');
 
 					$scope.loading = false;
-					/*
+					///*
 					// Store username and token in local storage to keep user logged in between page refreshes
 					$localStorage.currentUser = {
 						username: response.data.user.name,
 						token: response.data.token,
 						id: response.data.user.attendee_id
-					};*/
+					};
+					//*/
 
 					// add jwt token to auth header for all requests made by the $http service
 					$location.path('/main/home');

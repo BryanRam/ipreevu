@@ -55,61 +55,74 @@ class AttendeesController extends Controller
         $remember = $request->input('remember') === null ? false : $request->input('remember');
         //echo $remember;
         
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required'
+        // $this->validate($request, [
+        //     'email' => 'required|email',
+        //     'password' => 'required'
+        // ]);
+
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            //return redirect()->intended('dashboard');
+            return response()->json(Auth::guard('attendee')->user());
+        }
 
-
-        $credentials = $request->only('email', 'password');
+        //$credentials = $request->only('email', 'password');
 
 		
-         try
-        {
+       //  try
+       // {
             //$auth = Attendee();
             //return response()->json(['test' => getenv("JWT_SECRET")], 200);
             //return response()->json(['test' => Auth::guard('attendee')->user()], 200);
-            if ($remember)
-            {
-                //Set token expiration to 1 day
-                Auth::factory()->setTTL(1440);
-            }
+        //     if ($remember)
+        //     {
+        //         //Set token expiration to 1 day
+        //         Auth::factory()->setTTL(1440);
+        //     }
             
-            else
-            {
-                //Set token expiration to 1 hour
-                Auth::factory()->setTTL(60);
-		//return response()->json(['test' => 'function entered'], 200);		
-            }
+        //     else
+        //     {
+        //         //Set token expiration to 1 hour
+        //         Auth::factory()->setTTL(60);
+		// //return response()->json(['test' => 'function entered'], 200);		
+        //     }
             
-            //return response()->json(['test' => 'function entered'], 200);
+        //     //return response()->json(['test' => 'function entered'], 200);
 			
-                // attempt to verify the credentials and create a token for the user
-            if (! $token = Auth::attempt($credentials)) 
-            {
-                return response()->json(['error' => 'invalid_credentials'], 401);
-            }
+        //         // attempt to verify the credentials and create a token for the user
+        //     if (! $token = Auth::attempt($credentials)) 
+        //     {
+        //         return response()->json(['error' => 'invalid_credentials'], 401);
+        //     }
            //return response()->json(['test' => 'function entered'], 200);
 
-        }
-        catch (JWTException $e)
-        {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
+      //  }
+        // catch (Exception $e)
+        // {
+        //     // something went wrong whilst attempting to encode the token
+        //     return response()->json(['error' => 'could_not_create_token'], 500);
+        // }
         
 		
 		
         //$user = Auth::user();
-        $user = Auth::guard('attendee')->user(); //authenticate user with successfully generated token
+        //$user = Auth::guard('attendee')->user(); //authenticate user with successfully generated token
         
         
         
         // all good so return the token and user credentials
-        return response()->json(compact('user','token'));
+        //return response()->json(compact('user','token'));
         //return response()->json($payload);
-
+        
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
 
     }
 
@@ -126,15 +139,17 @@ class AttendeesController extends Controller
             'password' => 'required|min:8|regex:' . $regex,
         ]);
 
-        if (isset($result->error))
-        {
-            return response()->json([
-                'error'=> [
-                    'message' => 'Verification Failed',
-                    'result' => $result->error
-                ]
-            ], IlluminateResponse::HTTP_BAD_REQUEST);
-        }
+
+        //TODO: Refactor Error Validation
+        // if (isset($result->error))
+        // {
+        //     return response()->json([
+        //         'error'=> [
+        //             'message' => 'Verification Failed',
+        //             'result' => $result->error
+        //         ]
+        //     ], IlluminateResponse::HTTP_BAD_REQUEST);
+        // }
 
         $attendee_into = $request->only(
             'name',
@@ -276,7 +291,7 @@ class AttendeesController extends Controller
      */
     public function edit_attendee(Request $request,$id){
         if (!$edit  = Attendee::find($id))
-            return response()->json($del);
+            return response()->json([], 404);
 
         $edit->name = $request->input('name');
         $edit->email = $request->input('email');

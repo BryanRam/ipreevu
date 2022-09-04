@@ -20,7 +20,8 @@ angular.module('starter.services', [])
 .factory('Web', function($http, $localStorage) {
 		var Web;
 		(function(Web) {
-			var API_LOCATION = 'http://ipreevu.herokuapp.com/';
+			//var API_LOCATION = 'http://ipreevu.herokuapp.com/';
+			var API_LOCATION = 'http://localhost:80/';
                         var _token = $localStorage.user_token;
                        
                         //console.log(_token);
