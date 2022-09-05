@@ -8,10 +8,10 @@ class Chatlog extends Model{
     protected $primaryKey="chat_id";
     
     public function room(){
-        return $this->belongsTo('App\Models\Room');
+        return $this->belongsTo(Room::class);
     }
     
     public function attendee(){
-        return $this->belongsTo('App\Models\Attendee');
+        return $this->belongsTo(Attendee::class);
     }
 }

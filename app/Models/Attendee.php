@@ -41,7 +41,7 @@ class Attendee extends Model implements CanResetPasswordContract, /*JWTSubject,*
      * @return type
      */
     public function conferences(){
-        return $this->belongsToMany('App\Models\Conference', 'conference_attendees');
+        return $this->belongsToMany(Conference::class);
     }
     
     /**
@@ -50,7 +50,7 @@ class Attendee extends Model implements CanResetPasswordContract, /*JWTSubject,*
      */
     public function chats()
     {
-        return $this->hasMany('App\Models\Chatlog');
+        return $this->hasMany(Chatlog::class);
     }
     
     /**
@@ -59,7 +59,7 @@ class Attendee extends Model implements CanResetPasswordContract, /*JWTSubject,*
      */
     public function whitelist()
     {
-        return $this->hasMany('App\Models\Whitelist');
+        return $this->hasMany(Whitelist::class);
     }
     
     /**
@@ -68,7 +68,7 @@ class Attendee extends Model implements CanResetPasswordContract, /*JWTSubject,*
      */
     public function blacklist()
     {
-        return $this->hasMany('App\Models\Blacklist');
+        return $this->hasMany(Blacklist::class);
     }
     
      /**

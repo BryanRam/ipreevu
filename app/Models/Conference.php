@@ -20,7 +20,7 @@ class Conference extends Model{
      * @return type
      */
     public function client() {
-        return $this->belongsTo('App\Models\Client');
+        return $this->belongsTo(Client::class);
     }
     
     /**
@@ -29,7 +29,7 @@ class Conference extends Model{
      */
     public function presentations()
     {
-        return $this->hasMany('App\Models\Presentation');
+        return $this->hasMany(Presentation::class);
     }
     
     /**
@@ -38,7 +38,7 @@ class Conference extends Model{
      */
     public function rooms()
     {
-        return $this->hasMany('App\Models\Room');
+        return $this->hasMany(Room::class);
     }
     
     /**
@@ -47,7 +47,7 @@ class Conference extends Model{
      */
     public function sponsors()
     {
-        return $this->hasMany('App\Models\Sponsor');
+        return $this->hasMany(Sponsor::class);
     }
     
     /**
@@ -56,7 +56,7 @@ class Conference extends Model{
      */
     public function whitelist()
     {
-        return $this->hasMany('App\Models\Whitelist');
+        return $this->hasMany(Whitelist::class);
     }
     
     /**
@@ -65,7 +65,7 @@ class Conference extends Model{
      */
     public function blacklist()
     {
-        return $this->hasMany('App\Models\Blacklist');
+        return $this->hasMany(Blacklist::class);
     }
     
     /**
@@ -73,7 +73,7 @@ class Conference extends Model{
      * @return type
      */
     public function attendees(){
-        return $this->belongsToMany('App\Models\Attendee', 'conference_attendees');
+        return $this->belongsToMany(Attendee::class);
     }
 
     /**

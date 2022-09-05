@@ -14,6 +14,6 @@ class Sponsor extends Model {
     protected $primaryKey="sponsor_id";
 
     public function conference(){
-        return $this->belongsTo('App\Models\Conference');
+        return $this->belongsTo(Conference::class);
     }
 }

@@ -15,23 +15,23 @@ class Presentation extends Model {
     protected $primaryKey="presentation_id";
 
     public function conference(){
-        return $this->belongsTo('App\Models\Conference');
+        return $this->belongsTo(Conference::class);
     }
     
     public function categories(){
-        return $this->belongsToMany('App\Models\Category', 'pres_categories');
+        return $this->belongsToMany(Category::class);
     }
     
     public function speakers(){
-        return $this->belongsToMany('App\Models\Speaker', 'pres_speakers');
+        return $this->belongsToMany(Speaker::class);
     }
     
     public function chats(){
-        return $this->hasMany('App\Models\Chatlog');
+        return $this->hasMany(Chatlog::class);
     }
     
     public function room(){
-        return $this->belongsTo('App\Models\Room');
+        return $this->belongsTo(Room::class);
     }
 
     /**

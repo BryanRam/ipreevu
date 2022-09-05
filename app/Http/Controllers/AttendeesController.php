@@ -65,11 +65,11 @@ class AttendeesController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if ($token = Auth::attempt($credentials)) {
             $request->session()->regenerate();
- 
+            $user = Auth::guard('attendee')->user();
             //return redirect()->intended('dashboard');
-            return response()->json(Auth::guard('attendee')->user());
+            return response()->json(compact('user', 'token'));
         }
 
         //$credentials = $request->only('email', 'password');

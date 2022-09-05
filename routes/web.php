@@ -1,6 +1,14 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AttendeesController;
+use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ConferencesController;
+use App\Http\Controllers\SpeakersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,68 +30,70 @@ Route::get('/', function () {
 /**
  * These routes perform actions related to clients
  */
-Route::post('/clients/login', 'ClientsController@login');
-Route::post('/clients/register', 'ClientsController@register');
-Route::post('/clients/{id}/changepassword', 'ClientsController@change_password');
+Route::controller(ClientsController::class)->group(function() {
+    Route::post('/clients/login', 'login');
+    Route::post('/clients/register', 'register');
+    Route::post('/clients/{id}/changepassword', 'change_password');
 
-Route::get('/clients', ['middleware' => 'auth:client', 'uses' => 'ClientsController@get_all']);
-Route::get('/clients/{id}', ['middleware' => 'auth:client', 'uses' => 'ClientsController@get_id']);
+    Route::get('/clients', ['middleware' => 'auth:client', 'uses' => 'get_all']);
+    Route::get('/clients/{id}', ['middleware' => 'auth:client', 'uses' => 'get_id']);
 
-//put
-Route::delete('/clients/{id}', 'ClientsController@delete_client');
-Route::put('/clients/{id}', 'ClientsController@edit_client');
-
+    //put
+    Route::delete('/clients/{id}', 'delete_client');
+    Route::put('/clients/{id}', 'edit_client');
+});
 
 //conference
 /**
  * These routes perform actions related to conferences
  */
-    
-Route::get('/conferences/', ['middleware' => 'auth:attendee', 'uses' => 'ConferencesController@get_all']);
-//Route::get('/conferences/', 'ConferencesController@get_all');
+Route::controller(ConferencesController::class)->group(function() {    
+    Route::get('/conferences/', ['middleware' => 'auth:attendee', 'uses' => 'get_all']);
+    //Route::get('/conferences/', 'ConferencesController@get_all');
 
-Route::get('/conferences/{id}/speakers/', ['middleware' => 'auth:attendee', 'uses' => 'ConferencesController@get_conference_speakers']);
-Route::get('/conferences/{id}', 'ConferencesController@get_id');
-Route::get('/conferences/{id}/presentations/', ['middleware' => 'auth:attendee', 'uses' => 'ConferencesController@get_presentations']);
-Route::get('/conferences/{id}/presentation/', ['middleware' => 'auth:attendee', 'uses' => 'ConferencesController@select_presentation']);
-Route::get('/conferences/{id}/sponsors/', ['middleware' => 'auth:attendee', 'uses' => 'ConferencesController@get_sponsors']);
+    Route::get('/conferences/{id}/speakers/', ['middleware' => 'auth:attendee', 'uses' => 'get_conference_speakers']);
+    Route::get('/conferences/{id}', 'get_id');
+    Route::get('/conferences/{id}/presentations/', ['middleware' => 'auth:attendee', 'uses' => 'get_presentations']);
+    Route::get('/conferences/{id}/presentation/', ['middleware' => 'auth:attendee', 'uses' => 'select_presentation']);
+    Route::get('/conferences/{id}/sponsors/', ['middleware' => 'auth:attendee', 'uses' => 'get_sponsors']);
 
 
 
-Route::post('/conferences/register', ['middleware' => 'auth:client', 'uses' => 'ConferencesController@register']);
-Route::post('/conferences/{id}/presentations', 'ConferencesController@create_new_presentation');
-Route::post('/conferences/{id}/sponsors', 'ConferencesController@create_new_sponsor');
-Route::post('/conferences/{id}/blacklist', 'ConferencesController@add_to_blacklist');
-Route::post('/conferences/{id}/whitelist', 'ConferencesController@add_to_whitelist');
+    Route::post('/conferences/register', ['middleware' => 'auth:client', 'uses' => 'register']);
+    Route::post('/conferences/{id}/presentations', 'create_new_presentation');
+    Route::post('/conferences/{id}/sponsors', 'create_new_sponsor');
+    Route::post('/conferences/{id}/blacklist', 'add_to_blacklist');
+    Route::post('/conferences/{id}/whitelist', 'add_to_whitelist');
 
-    //works now
-Route::delete('/conferences/{id}', 'ConferencesController@delete_conference');
-Route::delete('/conferences/{id}/sponsors/', 'ConferencesController@delete_sponsor');
-Route::delete('/conferences/{id}/blacklist', 'ConferencesController@remove_from_blacklist');    
-Route::delete('/conferences/{id}/blacklist', 'ConferencesController@remove_from_whitelist');    
+        //works now
+    Route::delete('/conferences/{id}', 'delete_conference');
+    Route::delete('/conferences/{id}/sponsors/', 'delete_sponsor');
+    Route::delete('/conferences/{id}/blacklist', 'remove_from_blacklist');    
+    Route::delete('/conferences/{id}/blacklist', 'remove_from_whitelist');    
 
-Route::put('/conferences/{id}', 'ConferencesController@edit_conferences');
-
+    Route::put('/conferences/{id}', 'edit_conferences');
+    });
 
 //speakers
 /**
  * These routes perform actions related to speakers
  */
-Route::get('/speakers/', 'SpeakersController@get_all');
-Route::get('/speakers/{id}', ['middleware' => 'auth:attendee', 'uses' => 'SpeakersController@get_id']);
-Route::get('/speakers/{id}/presentations', 'SpeakersController@get_presentations');
+Route::controller(SpeakersController::class)->group(function() {
+    Route::get('/speakers/', 'get_all');
+    Route::get('/speakers/{id}', ['middleware' => 'auth:attendee', 'uses' => 'get_id']);
+    Route::get('/speakers/{id}/presentations', 'get_presentations');
 
-Route::get('/speakers/{id}/conferences', 'SpeakersController@get_conference_speakers');
+    Route::get('/speakers/{id}/conferences', 'get_conference_speakers');
 
-Route::delete('/speakers/{id}', 'SpeakersController@delete_speaker');
-/*
-Route::get('/speakers/', function() {   
-    View::make('index'); // will return app/views/index.php 
+    Route::delete('/speakers/{id}', 'delete_speaker');
+    /*
+    Route::get('/speakers/', function() {   
+        View::make('index'); // will return app/views/index.php 
+    });
+    */
+
+    Route::post('/speakers/register', 'create_new');
 });
-*/
-
-Route::post('/speakers/register', 'SpeakersController@create_new');
-
 
 //Route::group(['prefix' => 'projects', 'middleware' => 'jwt.auth'], function($app) {
 //    Route::post('/', 'App\Http\Controllers\ProjectsController@store');
@@ -153,17 +163,21 @@ Route::controller(AttendeesController::class)->group(function() {
 /**
  * These routes perform actions related to categories
  */
-Route::get('/categories/', 'CategoryController@get_all');
-Route::get('/categories/{id}', 'CategoryController@get_id');
-Route::get('/categories/{id}/presentations', 'CategoryController@get_all');
+Route::controller(CategoryController::class)->group(function() {
+    Route::get('/categories/', 'get_all');
+    Route::get('/categories/{id}', 'get_id');
+    Route::get('/categories/{id}/presentations', 'get_all');
 
-Route::post('/categories/register', 'CategoryController@create_new');
+    Route::post('/categories/register', 'create_new');
 
-Route::delete('/categories/{id}', 'CategoryController@delete_category');
+    Route::delete('/categories/{id}', 'delete_category');
 
-Route::put('/categories/{id}', 'CategoryController@edit_category');
+    Route::put('/categories/{id}', 'edit_category');
 
+
+    
+});
 
 Route::group(['prefix' => 'admin'], function () {
-//    Voyager::routes();
-});
+    //    Voyager::routes();
+    });

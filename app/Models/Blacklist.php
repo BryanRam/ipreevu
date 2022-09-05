@@ -13,10 +13,10 @@ class Blacklist extends Model{
     protected $table = 'blacklist';
     
     public function conference(){
-        return $this->belongsTo('App\Models\Conference');
+        return $this->belongsTo(Conference::class);
     }
     
     public function attendee(){
-        return $this->belongsTo('App\Models\Attendee');
+        return $this->belongsTo(Attendee::class);
     }
 }

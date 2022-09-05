@@ -15,7 +15,7 @@ class Speaker extends Model {
     protected $primaryKey="speaker_id";
 
     public function presentations(){
-        return $this->belongsToMany('App\Models\Presentation', 'pres_speakers');
+        return $this->belongsToMany(Presentation::class);
     }
 
     /**

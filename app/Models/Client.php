@@ -45,7 +45,7 @@ class Client extends Model implements Authenticatable {
      */
     public function conferences()
     {
-        return $this->hasMany('App\Models\Conference');
+        return $this->hasMany(Conference::class);
     }
 
     /**

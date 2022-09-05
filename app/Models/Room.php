@@ -15,11 +15,11 @@ class Room extends Model {
     protected $primaryKey="room_id";
 
     public function conference(){
-        return $this->belongsTo('App\Models\Conference');
+        return $this->belongsTo(Conference::class);
     }
     
     public function presentations(){
-        return $this->hasMany('App\Models\Presentation');
+        return $this->hasMany(Presentation::class);
     }
 
     /**

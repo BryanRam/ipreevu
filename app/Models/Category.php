@@ -14,7 +14,7 @@ class Category extends Model{
     protected $primaryKey="category_id";
 
     public function presentations(){
-        return $this->belongsToMany('App\Models\Presentation', 'pres_categories');
+        return $this->belongsToMany(Presentation::class);
     }
 
     /**

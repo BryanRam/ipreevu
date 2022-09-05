@@ -4,6 +4,7 @@
  */
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Conference;
 use App\Models\Presentation;
 use App\Models\Sponsor;
@@ -12,6 +13,8 @@ use App\Models\Blacklist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
+
+
 /**
  * Controller for the conferences table.
  *

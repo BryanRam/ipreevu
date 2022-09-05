@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Presentation;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 /**
  * Controller for the Category Model.
