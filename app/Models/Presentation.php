@@ -15,7 +15,7 @@ class Presentation extends Model {
     protected $primaryKey="presentation_id";
 
     public function conference(){
-        return $this->belongsTo(Conference::class);
+        return $this->belongsTo(Conference::class, 'conference_id');
     }
     
     public function categories(){
@@ -23,7 +23,7 @@ class Presentation extends Model {
     }
     
     public function speakers(){
-        return $this->belongsToMany(Speaker::class);
+        return $this->belongsToMany(Speaker::class, 'pres_speakers', 'presentation_id', 'speaker_id');
     }
     
     public function chats(){

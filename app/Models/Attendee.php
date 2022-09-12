@@ -41,7 +41,7 @@ class Attendee extends Model implements CanResetPasswordContract, /*JWTSubject,*
      * @return type
      */
     public function conferences(){
-        return $this->belongsToMany(Conference::class);
+        return $this->belongsToMany(Conference::class, 'conference_attendees', 'attendee_id', 'conference_id');
     }
     
     /**

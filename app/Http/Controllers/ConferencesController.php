@@ -9,6 +9,7 @@ use App\Models\Conference;
 use App\Models\Presentation;
 use App\Models\Sponsor;
 use App\Models\Blacklist;
+use App\Models\Attendee;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

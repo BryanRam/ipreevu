@@ -129,6 +129,7 @@ angular.module('starter.services', [])
 				 */
 				Attendees.Conferences = function(id) {
 					return $http.get(API_LOCATION + 'attendees/' + id + '/conferences');
+					//return $http.get(API_LOCATION + 'conferences/' + id + '/attendees');
 				};
                                 /**
 				 * Lets an attendee join the selected conference, adding that conference to the list of conferences the attendee is signed up for

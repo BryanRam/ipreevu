@@ -159,10 +159,12 @@ angular.module('starter.controllers', [])
 	};
         
         $scope.joinConference = function(conference_id) {
-            alert('button clicked!');
+            alert('Joining Conference...');
             //allows user to be added to a public conference
             Attendee.JoinConference(conference_id);
-            
+			//var res = Web.Conferences.JoinConference(conference_id);
+			alert("Conference joined!");
+			console.log(res);
         }
 })
 
@@ -323,7 +325,7 @@ angular.module('starter.controllers', [])
                 
 		Attendee.Login($scope.attendeeData.email, $scope.attendeeData.password, $scope.attendeeData.remember)
 			.then(function(response) {
-					alert('Login Successful!');
+					console.log('Login Successful!');
 
 					$scope.loading = false;
 					///*
@@ -339,7 +341,7 @@ angular.module('starter.controllers', [])
 					$location.path('/main/home');
 				},
 				function(response) {
-					alert('Something went wrong with the login process. Try again later!');
+					console.log('Something went wrong with the login process. Try again later!');
 				}
 			);
 

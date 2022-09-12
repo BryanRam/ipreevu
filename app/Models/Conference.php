@@ -29,7 +29,7 @@ class Conference extends Model{
      */
     public function presentations()
     {
-        return $this->hasMany(Presentation::class);
+        return $this->hasMany(Presentation::class, 'presentation_id');
     }
     
     /**
@@ -73,7 +73,7 @@ class Conference extends Model{
      * @return type
      */
     public function attendees(){
-        return $this->belongsToMany(Attendee::class);
+        return $this->belongsToMany(Attendee::class, 'conference_attendees', 'conference_id', 'attendee_id');
     }
 
     /**

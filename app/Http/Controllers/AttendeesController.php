@@ -185,7 +185,7 @@ class AttendeesController extends Controller
         if ( !$attendee = Attendee::find($attendee_id) )
         {
             return response()->json(array(), 404);
-	}
+	    }
         
         $attendee->conferences()->attach($conference_id, ['created_at'=>$attendee->created_at, 'updated_at'=>$attendee->updated_at]);
         return response()->json($attendee);
