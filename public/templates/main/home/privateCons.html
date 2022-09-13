@@ -24,7 +24,7 @@
         <div class="panel-body" >
             <h2>Conference {{conference.conference_id}}: {{conference.name}}</h2>
             <div>
-                <img src="http://placehold.it/200x200" height="200" width="200" class="pull-left">
+                <img src="https://via.placeholder.com/200" height="200" width="200" class="pull-left">
                 <div style="min-height: 200px;">
                     <p ng-class="{empty: !(presentation[conference.conference_id])}"> <strong>{{presentation[conference.conference_id].presentation_id || '?'}}: {{presentation[conference.conference_id].title || '?'}} </strong> </p>
                 </div>              
