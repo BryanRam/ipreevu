@@ -5,6 +5,7 @@ Ipreevu is a recreation of the CSS Conference Web (<a href="https://github.com/B
 You can view Ipreevu live here: <a href="https://ipreevu.herokuapp.com/" target="_blank">https://ipreevu.herokuapp.com/</a>
 
 You can register an account then log in. But if you want to skip that process these login details work:
+
 Email: test@test.com   
 Password: Password1
 
