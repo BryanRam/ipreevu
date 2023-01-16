@@ -139,9 +139,14 @@ angular.module('starter.services', [])
                                  * @param {type} conferenceId the conference's id
 				 * @returns {Promise}
 				 */
-                                Attendees.JoinConference = function(attendeeID, conferenceID) {
+                Attendees.JoinConference = function(attendeeID, conferenceID) {
 					return $http.post(API_LOCATION + 'attendees/' + attendeeID + '/conferences/' + conferenceID);
 				};
+
+				Attendees.LeaveConference = function(attendeeID, conferenceID) {
+					return $http.delete(API_LOCATION + 'attendees/' + attendeeID + '/conferences/' + conferenceID);
+				};
+				
 				return Attendees;
 			}());
 			Web.Attendees = Attendees;
@@ -449,15 +454,26 @@ angular.module('starter.services', [])
 			AttendeeService.prototype.Conferences = function() {
 				return Web.Attendees.Conferences(this.User.attendee_id);
 			};
-                        /**
-                         * Lets the current user join a conference, chosen by conferenceID.
-                         * @memberOf Attendee
-                         * @method JoinConference
-                         * @returns {undefined}
-                         */
-                        AttendeeService.prototype.JoinConference= function(conferenceID){
-                                return Web.Attendees.JoinConference(this.User.attendee_id, conferenceID);
-                        }
+            /**
+              * Lets the current user join a conference, chosen by conferenceID.
+              * @memberOf Attendee
+              * @method JoinConference
+              * @returns {undefined}
+              */
+            AttendeeService.prototype.JoinConference= function(conferenceID){
+                return Web.Attendees.JoinConference(this.User.attendee_id, conferenceID);
+            }
+			
+			/**
+             * Lets the current user join a conference, chosen by conferenceID.
+             * @memberOf Attendee
+             * @method JoinConference
+             * @returns {undefined}
+             */
+			AttendeeService.prototype.LeaveConference= function(conferenceID){
+				return Web.Attendees.LeaveConference(this.User.attendee_id, conferenceID);
+			}			
+						
 			return AttendeeService;
 		}());
 		return new AttendeeService();

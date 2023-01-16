@@ -22,6 +22,7 @@
 
     <div class="panel panel-default" style="width:75%; margin: auto;" ng-hide="loading" dir-paginate="conference in conferences | itemsPerPage: 10">
         <div class="panel-body" >
+          <p>{{checkIfJoined(conference.conference_id)}} </p>
             <h2>Conference {{conference.conference_id}}: {{conference.name}}</h2>
             <div>
                 <img src="https://via.placeholder.com/200" class="pull-left img-responsive">
@@ -44,7 +45,8 @@
                     </div>
                     <div class="col-xs-6 col-md-4">
 <!--                      <button class="btn pull-right" data-toggle="collapse" href="#collapse2">Join Conference</button>-->
-                        <button type="button" class="btn" ng-click="joinConference(conference.conference_id)">Join Conference</button>
+                        <button type="button" class="btn" ng-if="checkIfJoined(conference.conference_id)" ng-click="joinConference(conference.conference_id)">Join Conference</button>
+                        <button type="button" class="btn" ng-if="!checkIfJoined(conference.conference_id)" ng-click="leaveConference(conference.conference_id)">Leave Conference</button>
                     </div>
                 </div>
             </div>

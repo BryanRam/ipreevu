@@ -127,6 +127,7 @@ Route::controller(AttendeesController::class)->group(function() {
 
 
     Route::delete('/attendees/{id}', 'delete_attendee');
+    Route::delete('/attendees/{attendeeID}/conferences/{conferenceID}',['middleware' => 'auth:attendee', 'uses' => 'leave_conference']);
 
     //put
     Route::put('/attendees/{id}', 'edit_attendee');

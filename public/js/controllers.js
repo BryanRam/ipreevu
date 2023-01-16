@@ -32,13 +32,15 @@ angular.module('starter.controllers', [])
  * @param $location {service} ng location
  * @returns {undefined}
  */
-.controller('MainCtrl', function(Attendee, $location, $scope) {
+.controller('MainCtrl', function(Attendee, Web, $location, $scope) {
 //        console.log($localStorage);
         CheckIfLoggedIn(Attendee, $location);
         $scope.$on('$stateChangeSuccess', function(){
             console.log("State change success");
            CheckIfLoggedIn(Attendee, $location); 
         });
+
+		//CheckIfJoined(Attendee, Web);
 
 })
 
@@ -166,6 +168,30 @@ angular.module('starter.controllers', [])
 			alert("Conference joined!");
 			console.log(res);
         }
+	
+	$scope.checkIfJoined = function(conference_id){
+		return CheckIfJoined(conference_id, $scope.userConferences);
+	}
+
+	Attendee.Conferences()
+	.success(function(data) {
+	$scope.userConferences = data;
+	
+    });
+
+	
+
+	$scope.leaveConference = function(conference_id){
+		Attendee.LeaveConference(conference_id,	function(response) {
+			alert("Left Conference");
+			Web.Attendees.Conferences()
+				.success(function(data) {
+					$scope.userConferences = data;
+				});
+		}, function(response) {
+			alert("Error!!!");
+		});
+	}
 })
 
 .controller('bgCtrl', function($scope) {
@@ -186,10 +212,9 @@ angular.module('starter.controllers', [])
 .controller('HeaderCtrl', function($scope, Attendee, $location, $localStorage, $stateParams, Web) {
     
         $scope.menuToggle = false;
+		$scope.helpModal = false;
         $scope.select = function () {
                 $scope.menuToggle = !$scope.menuToggle;
-//                console.log("is here.");
-//                console.log($scope.menuToggles);
             };
     
 	$scope.userDetails = $localStorage.user_data;
@@ -214,7 +239,9 @@ angular.module('starter.controllers', [])
 	};
 
 	$scope.showHelpModal = function($scope) {
-		$scope.showModal = true;
+		console.log("is here.");
+	console.log($scope);
+		$scope.helpModal = true;
 	};
 })
 
@@ -589,6 +616,24 @@ function CheckIfLoggedIn(Attendee, $location)
            $location.path('/login');
 }
 
+function CheckIfJoined(conferenceID, userConferences){
+	let cid = conferenceID;
+	let userConfs = userConferences;
+
+	
+
+	userConfs.forEach((uconf) => {
+		
+		if(cid === uconf.conference_id)
+		{
+			console.log("Check if joined T");
+			return true;
+		}
+
+	});
+
+	//return false;
+}
 
 
 /*

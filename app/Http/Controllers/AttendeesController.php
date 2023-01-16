@@ -6,6 +6,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendee;
+use App\Models\Conference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -266,7 +267,7 @@ class AttendeesController extends Controller
     }
 
 
-    //DELETE FUNCTION
+    //DELETE FUNCTIONS
     /**
      * 
      * @param type $id
@@ -279,6 +280,28 @@ class AttendeesController extends Controller
         $del->delete();
 
         return response()->json($del);
+    }
+
+    /**
+     * Allows user to leave chosen conference
+     * @param type $attendee_id
+     * @param type $conference_id
+     * @return type
+     */
+    public function leave_conference($attendee_id, $conference_id)
+    {
+        if ( !$attendee = Attendee::find($attendee_id) )
+        {
+            return response()->json(array(), 404);
+	    }
+
+        if (!Conference::find($conference_id))
+		{
+			return response()->json(array(), 404);
+		}
+        
+        $attendee->conferences()->detach($conference_id);
+        return response()->json($attendee);
     }
 
 
