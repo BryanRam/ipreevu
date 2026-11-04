@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
                      PresentationTableSeeder::class,
                      SpeakerTableSeeder::class,
                      CategoryTableSeeder::class,
-                     AttendeeTableSeeder::class]);
+                     AttendeeTableSeeder::class,
+                     GuestUserSeeder::class]);
     }
 }
